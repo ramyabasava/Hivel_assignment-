@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-// 1. Decode function (same as before)
+
 function decodeBaseValue(valueStr, base) {
     const radix = BigInt(base);
     let decodedValue = 0n;
@@ -15,7 +15,7 @@ function decodeBaseValue(valueStr, base) {
     return decodedValue;
 }
 
-// 2. Lagrange Interpolation for a specific set of k points
+
 function calculateLagrange(points) {
     const k = points.length;
     let finalNumerator = 0n;
@@ -46,7 +46,7 @@ function calculateLagrange(points) {
     return { num: finalNumerator, den: finalDenominator };
 }
 
-// 3. Helper to generate combinations of points
+
 function getCombinations(arr, k) {
     if (k === 0) return [[]];
     if (arr.length === 0) return [];
@@ -75,8 +75,7 @@ function findSecretConstant() {
             points.push({ x, y });
         }
 
-        // Because the input might have invalid points, we try to find 
-        // a subset of size k that produces a VALID integer result (no remainder).
+       
         
         // If n is small enough, we can brute force combinations
         if (points.length <= 12) { // 10 choose 7 is only 120 combinations
@@ -89,7 +88,7 @@ function findSecretConstant() {
                 if (result.den !== 0n && result.num % result.den === 0n) {
                     const secret = result.num / result.den;
                     
-                    // Usually secrets are positive. If we find a positive integer, likely correct.
+                    
                     if (secret > 0n) {
                         console.log(secret.toString());
                         return;
@@ -97,7 +96,7 @@ function findSecretConstant() {
                 }
             }
         } else {
-            // Fallback to first k if too many points (not the case here)
+        
             const result = calculateLagrange(points.slice(0, k));
             console.log((result.num / result.den).toString());
         }
